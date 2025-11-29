@@ -22,7 +22,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <p id="gameTime"></p>
+        <p id="score"></p>
         <div>
             <canvas id="downSyndrome"></canvas>
         </div>
@@ -43,6 +43,7 @@
             gameTime = 0;
             canvas.width = 480;
             canvas.height = 360;
+            score = 0;
 
             bullets = [];
             spawners = [];
@@ -103,7 +104,7 @@
             function pauseDuration(time) {
                 clearInterval(loop);
                 console.log("Whoops!");
-                setTimeout(function() {loop = setInterval(gameLoop, 1); explosion.play();}, time);
+                setTimeout(function() {loop = setInterval(gameLoop, 2); explosion.play();}, time);
             }
             function tickPhysics(sprite, friction) {
                 sprite.xvel = sprite.xvel/friction;
@@ -250,7 +251,7 @@
                 }
                 ctx.clearRect(0,0,canvas.width, canvas.height);
                 gameTime += 0.1;
-                document.getElementById("gameTime").innerText = "GameTime:" + gameTime;
+                document.getElementById("score").innerText = "Score:" + score;
                 drawPlayer(TMC);
                 if (input[4][1]) {
                     console.log("NEW BULLET")
@@ -276,6 +277,7 @@
                     if (isColliding(bullets[bullet], TMC)) {
                         bullets.splice(bullet, 1);
                         ouch.play();
+                        window.close();
                         TMC.x = 0;
                     }
                     if (gameTime - bullets[bullet].timeOfBirth <= 6) {
@@ -291,6 +293,7 @@
                             rocket.pause();
                             hitSpawner.play();
                             pauseDuration(500);
+                            score++;
                             shakeScreen(67, 0.5);
                         }
                     }
@@ -308,7 +311,7 @@
                 }
                 
             }
-            loop = setInterval(gameLoop, 1);
+            loop = setInterval(gameLoop, 2);
             setInterval(function() {
                 for (let spawner = 0; spawner < spawners.length; spawner++) {
                     spawnBullet(spawners[spawner].x, spawners[spawner].y);
@@ -322,5 +325,6 @@
             }, SPAWNER_SPAWN_RATE);
         </script>
     </body>
+
 
 </html>
