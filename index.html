@@ -27,6 +27,9 @@
             <canvas id="downSyndrome"></canvas>
         </div>
         <script>
+
+            const FRAMETIME = 4;
+            
             const canvas = document.getElementById("downSyndrome");
             const ctx = canvas.getContext("2d");
             let loop;
@@ -104,7 +107,7 @@
             function pauseDuration(time) {
                 clearInterval(loop);
                 console.log("Whoops!");
-                setTimeout(function() {loop = setInterval(gameLoop, 10); explosion.play();}, time);
+                setTimeout(function() {loop = setInterval(gameLoop, FRAMETIME); explosion.play();}, time);
             }
             function tickPhysics(sprite, friction) {
                 sprite.xvel = sprite.xvel/friction;
@@ -311,7 +314,7 @@
                 }
                 
             }
-            loop = setInterval(gameLoop, 10);
+            loop = setInterval(gameLoop, FRAMETIME);
             setInterval(function() {
                 for (let spawner = 0; spawner < spawners.length; spawner++) {
                     spawnBullet(spawners[spawner].x, spawners[spawner].y);
@@ -328,4 +331,5 @@
 
 
 </html>
+
 
