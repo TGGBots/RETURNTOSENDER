@@ -139,6 +139,9 @@
                 if (input[3][1]) {
                     playerSprite.yvel += acceleration;
                 }
+                playerSprite.x = Math.min(Math.abs(playerSprite.x), canvas.width);
+                playerSprite.y = Math.min(Math.abs(playerSprite.y), canvas.height);
+                console.log(Math.min(Math.abs(playerSprite.x), canvas.width));
                 return playerSprite;
             }
             function spawnBullet(xpos, ypos) {
